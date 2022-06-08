@@ -1,0 +1,21 @@
+{
+  "images" : [
+    {
+      "filename" : "The_Weather_Room_Food_Shot_520c57c3-deeb-475f-b449-c4a84f3172bd.png",
+      "idiom" : "universal",
+      "scale" : "1x"
+    },
+    {
+      "idiom" : "universal",
+      "scale" : "2x"
+    },
+    {
+      "idiom" : "universal",
+      "scale" : "3x"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}
