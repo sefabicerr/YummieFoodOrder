@@ -9,21 +9,49 @@ import UIKit
 
 class OrderedViewController: UIViewController {
 
+    //MARK: - IBOutlets
+    @IBOutlet weak var orderedTableView: UITableView!
+    
+    //MARK: - Vars
+    var orderedList = [Ordered]()
+    
+    //MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        registerCells()
+        getOrdered()
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    //MARK: Connection of cell design
+    private func registerCells() {
+        orderedTableView.register(UINib(nibName: OrderedTableViewCell.identifier, bundle: nil), forCellReuseIdentifier: OrderedTableViewCell.identifier)
     }
-    */
+    
+    //MARK: - Get from all ordered from firebase
+    private func getOrdered() {
+        downloadOrderedFromFirebase(with: User.currentId()) { (allOrdered) in
+            self.orderedList = allOrdered
+            self.orderedTableView.reloadData()
+            print(self.orderedList.count)
+        }
+    }
+}
 
+
+extension OrderedViewController: UITableViewDelegate,UITableViewDataSource {
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return orderedList.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: OrderedTableViewCell.identifier) as! OrderedTableViewCell
+        let ordered = orderedList[indexPath.row]
+        cell.setup(ordered: ordered)
+        return cell
+    }
+    
+    
+    
 }

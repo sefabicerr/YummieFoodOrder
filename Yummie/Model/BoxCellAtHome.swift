@@ -6,3 +6,9 @@
 //
 
 import Foundation
+import UIKit
+
+struct BoxCellAtHome {
+    let title : String
+    let image : UIImage
+}

@@ -6,3 +6,18 @@
 //
 
 import Foundation
+import FirebaseFirestore
+
+enum FCollectionReference: String {
+    case User
+    case Favorite
+    case Adress
+    case Ordered
+}
+
+
+func FirebaseReference(_ collectionReference: FCollectionReference) -> CollectionReference{
+    return Firestore.firestore().collection(collectionReference.rawValue)
+    
+}
+

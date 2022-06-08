@@ -6,3 +6,8 @@
 //
 
 import Foundation
+
+class FoodInTheCartResponse : Codable {
+    var sepet_yemekler: [FoodInTheCart]?
+    var success: Int?
+}

@@ -6,3 +6,8 @@
 //
 
 import Foundation
+import UIKit
+
+struct sliderImageAtHome {
+    let image : UIImage
+}

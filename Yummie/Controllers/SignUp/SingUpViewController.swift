@@ -9,7 +9,7 @@ import UIKit
 import FirebaseAuth
 import NVActivityIndicatorView
 
-class SingUpViewController: UIViewController,AlertProtocol{
+class SingUpViewController: UIViewController,AlertProtocol,ActivityIndicatorProtocol{
 
     
     @IBOutlet weak var segmented: UISegmentedControl! {
@@ -26,31 +26,46 @@ class SingUpViewController: UIViewController,AlertProtocol{
     @IBOutlet weak var passwordVerificationTextField: UITextField! {
         didSet {
             passwordVerificationTextField.isSecureTextEntry = true
-            
         }
     }
     
     //MARK: Vars
     var activityIndicator: NVActivityIndicatorView?
-    var iconClick = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        showHidePasswordView()
-        
-
+        activityIndicator = createActivityIndicator()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         emailTextField.becomeFirstResponder()
         
-        activityIndicator = NVActivityIndicatorView(frame: CGRect(x: self.view.frame.width / 2 - 30, y: self.view.frame.height / 2 - 30, width: 60.0, height: 60.0), type: .ballPulse, color: UIColor(named: "IndicatorColor") /*#colorLiteral(red:0.9998469946 , green:1.0 , blue:1.0 , alpha:1.0)*/, padding: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         segmented.selectedSegmentIndex = 1
+    }
+    
+    @IBAction func showPasswordBtnClicked(_ sender: UIButton) {
+        if sender.isSelected {
+            sender.isSelected = false
+            passwordTextField.isSecureTextEntry = true
+        } else {
+            sender.isSelected = true
+            passwordTextField.isSecureTextEntry = false
+        }
+    }
+    
+    @IBAction func showPasswordVerificationBtnClicked(_ sender: UIButton) {
+        if sender.isSelected {
+            sender.isSelected = false
+            passwordVerificationTextField.isSecureTextEntry = true
+        } else {
+            sender.isSelected = true
+            passwordVerificationTextField.isSecureTextEntry = false
+        }
     }
 
     @IBAction func signUpBtnClicked(_ sender: Any) {
@@ -78,22 +93,9 @@ class SingUpViewController: UIViewController,AlertProtocol{
         }
     }
     
-    private func showLoadingIndicator(){
-        if activityIndicator != nil {
-            self.view.addSubview(activityIndicator!)
-            activityIndicator?.startAnimating()
-        }
-    }
-    
-    private func hideLoadingIndicator(){
-        if activityIndicator != nil {
-            activityIndicator?.removeFromSuperview()
-            activityIndicator?.stopAnimating()
-        }
-    }
-    
+    //MARK: - To save user to firebase
     private func registerUser() {
-        showLoadingIndicator()
+        showLoadingIndicator(activityIndicator: activityIndicator)
         
         User.registerUserWith(email: emailTextField.text!, password: passwordTextField.text!) { (error) in
             if error == nil {
@@ -104,53 +106,7 @@ class SingUpViewController: UIViewController,AlertProtocol{
                 print("error:", error!.localizedDescription)
                 self.alertMessage(titleInput: "Hata", messageInput: "Email adresi zaten başka bir hesap tarafından kullanılıyor, lütfen başka bir hesap kullanın.")
             }
-            self.hideLoadingIndicator()
+            self.hideLoadingIndicator(activityIndicator: self.activityIndicator)
         }
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    //MARK: Show/Hide Password func
-    func showHidePasswordView() {
-        let imageIcon = UIImageView()
-        imageIcon.image = UIImage(named: "hidden")
-        let contentView = UIView()
-        contentView.addSubview(imageIcon)
-        contentView.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
-        imageIcon.frame = CGRect(x: -10, y: 0, width: 30, height: 30)
-        passwordTextField.rightView = contentView
-        passwordTextField.rightViewMode = .always
-        
-        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageTapped(tapGestureRecognizer:)))
-        imageIcon.isUserInteractionEnabled = true
-        imageIcon.addGestureRecognizer(tapGestureRecognizer)
-    }
-    
-    @objc func imageTapped(tapGestureRecognizer: UITapGestureRecognizer) {
-        let tappedImage = tapGestureRecognizer.view as! UIImageView
-        
-        if iconClick{
-            iconClick = false
-            tappedImage.image = UIImage(named: "view")
-            passwordTextField.isSecureTextEntry = false
-
-        } else {
-            iconClick = true
-            tappedImage.image = UIImage(named: "hidden")
-            passwordTextField.isSecureTextEntry = true
-        }
-    }
-    
-    
-    
-    
 }

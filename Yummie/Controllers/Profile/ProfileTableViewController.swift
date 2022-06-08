@@ -10,16 +10,17 @@ import FirebaseAuth
 
 class ProfileTableViewController: UITableViewController {
     
+    //MARK: - IBOutlets
     @IBOutlet weak var userImage: UIImageView!
     @IBOutlet weak var fullNameLbl: UILabel!
     @IBOutlet weak var emailLbl: UILabel!
     @IBOutlet weak var phoneNumberLbl: UILabel!
     @IBOutlet weak var adressLbl: UILabel!
     
-    //MARK: Vars
+    //MARK: -Vars
     @IBOutlet weak var rightEditBtn: UIBarButtonItem!
     
-    //MARK:Lifecycle
+    //MARK: -Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tableView.contentInset = UIEdgeInsets(top: -20, left: 0, bottom: -20, right: 0)
@@ -33,7 +34,6 @@ class ProfileTableViewController: UITableViewController {
     }
 
     // MARK: - Table view data source
-    
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return CGFloat.leastNormalMagnitude
     }
@@ -67,8 +67,7 @@ class ProfileTableViewController: UITableViewController {
         present(controller, animated: true, completion: nil)
     }
     
-    
-    
+    //MARK: - User logs out
     private func logOut() {
         do{
             try Auth.auth().signOut()
@@ -80,7 +79,6 @@ class ProfileTableViewController: UITableViewController {
             print(error.localizedDescription)
         }
     }
-    
     
     private func checkOnBoardingStatus() {
         if User.currentUser()!.onBoard {

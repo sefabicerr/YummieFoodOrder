@@ -9,11 +9,12 @@ import UIKit
 
 class OnBoardingViewController: UIViewController {
 
+    //MARK: - IBOutlets
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var pageControl: UIPageControl!
     @IBOutlet weak var nextBtn: UIButton!
     
-    //VARS
+    //MARK: -VARS
     var slides: [OnBoardingSlide] = []
     var currentPage = 0 {
         didSet {
@@ -26,6 +27,7 @@ class OnBoardingViewController: UIViewController {
         }
     }
     
+    //MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
 

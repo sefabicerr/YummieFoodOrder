@@ -1,21 +1,81 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13142" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12042"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="KGk-i7-Jjw" customClass="AdressTableViewCell" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="AdressTableViewCell" rowHeight="80" id="KGk-i7-Jjw" customClass="AdressTableViewCell" customModule="Yummie" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="81"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="81"/>
                 <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="house.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="QQ6-HH-AMR">
+                        <rect key="frame" x="11" y="17" width="45" height="45"/>
+                        <color key="tintColor" name="appColor"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="45" id="ba4-Xi-rc8"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ev" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KJu-hi-MSF">
+                        <rect key="frame" x="64" y="18" width="15.5" height="16"/>
+                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="13"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="cumhuriyet mahallesi 311 sokak no 11 kat 2 zafer apartmanı manisa salihli" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QSr-Nv-8tl">
+                        <rect key="frame" x="64" y="36" width="210" height="29"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NNC-Sj-ZNb">
+                        <rect key="frame" x="285" y="29" width="22" height="22"/>
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="NNC-Sj-ZNb" secondAttribute="height" id="O8C-Ui-Wcy"/>
+                        </constraints>
+                        <color key="tintColor" name="appColor"/>
+                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                        <state key="normal" image="trash" catalog="system"/>
+                        <connections>
+                            <action selector="trashBtnClicked:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="E8z-hP-8WD"/>
+                        </connections>
+                    </button>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="bottom" secondItem="NNC-Sj-ZNb" secondAttribute="bottom" constant="30" id="1d3-nM-u9j"/>
+                    <constraint firstAttribute="bottom" secondItem="QQ6-HH-AMR" secondAttribute="bottom" constant="18" id="4lE-zF-KnY"/>
+                    <constraint firstItem="KJu-hi-MSF" firstAttribute="leading" secondItem="QQ6-HH-AMR" secondAttribute="trailing" constant="8" symbolic="YES" id="Ebv-W7-YgN"/>
+                    <constraint firstItem="NNC-Sj-ZNb" firstAttribute="leading" secondItem="QSr-Nv-8tl" secondAttribute="trailing" constant="11" id="OEB-ID-PiE"/>
+                    <constraint firstItem="QSr-Nv-8tl" firstAttribute="top" secondItem="KJu-hi-MSF" secondAttribute="bottom" constant="2" id="Sgb-c3-xua"/>
+                    <constraint firstItem="NNC-Sj-ZNb" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="29" id="Xzh-j1-dHB"/>
+                    <constraint firstItem="QQ6-HH-AMR" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="11" id="aTg-J8-zQK"/>
+                    <constraint firstItem="KJu-hi-MSF" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="18" id="egJ-3p-U8K"/>
+                    <constraint firstItem="NNC-Sj-ZNb" firstAttribute="width" secondItem="NNC-Sj-ZNb" secondAttribute="height" id="hPL-oa-0dW"/>
+                    <constraint firstItem="QSr-Nv-8tl" firstAttribute="leading" secondItem="QQ6-HH-AMR" secondAttribute="trailing" constant="8" symbolic="YES" id="lUd-OW-xrh"/>
+                    <constraint firstAttribute="trailing" secondItem="NNC-Sj-ZNb" secondAttribute="trailing" constant="13" id="lfb-zB-kNa"/>
+                    <constraint firstItem="QQ6-HH-AMR" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="18" id="vyD-bv-bK2"/>
+                </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="adressLbl" destination="QSr-Nv-8tl" id="qRh-bN-WVr"/>
+            </connections>
+            <point key="canvasLocation" x="160.86956521739131" y="100.11160714285714"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="house.fill" catalog="system" width="128" height="106"/>
+        <image name="trash" catalog="system" width="121" height="128"/>
+        <namedColor name="appColor">
+            <color red="0.81199997663497925" green="0.28200000524520874" blue="0.13300000131130219" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
 </document>

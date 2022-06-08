@@ -9,15 +9,17 @@ import UIKit
 
 class SelectedAdressTableViewCell: UITableViewCell {
 
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
+    static let identifier = String(describing: SelectedAdressTableViewCell.self)
+    
+    @IBOutlet weak var backView: UIView!
+    @IBOutlet weak var adressLbl: UILabel!
+    
+    func setup(_ adress: String) {
+        adressLbl.text = adress
     }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
+    
+    func createBackView(){
+        backView.roundCorners([.bottomRight, .topRight], radius: 22)
     }
     
 }

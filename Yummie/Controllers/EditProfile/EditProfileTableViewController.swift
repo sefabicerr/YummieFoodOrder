@@ -9,7 +9,7 @@ import UIKit
 
 class EditProfileTableViewController: UITableViewController, UITextFieldDelegate, AlertProtocol {
     
-    //MARK:IBOutlets
+    //MARK: - IBOutlets
     @IBOutlet weak var nameTextField: UITextField!{
         didSet{
             nameTextField.tag = 1
@@ -32,27 +32,15 @@ class EditProfileTableViewController: UITableViewController, UITextFieldDelegate
             phoneNumberTextField.autocapitalizationType = .words
         }
     }
-    @IBOutlet weak var adressTextField: UITextField!{
-        didSet{
-            adressTextField.tag = 3
-            adressTextField.delegate = self
-            adressTextField.autocapitalizationType = .words
-        }
-    }
     
-    //MARK: Lifecycle
+    //MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tableView.contentInset = UIEdgeInsets(top: -20, left: 0, bottom: -20, right: 0)
         loadUserInfo()
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-    }
-
-    // MARK: Table view data source
+    // MARK: - Table view data source
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return CGFloat.leastNormalMagnitude
     }
@@ -68,13 +56,14 @@ class EditProfileTableViewController: UITableViewController, UITextFieldDelegate
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 6
+        return 5
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
+    //MARK: - Button action
     @IBAction func saveBtnClicked(_ sender: Any) {
         if textFieldHaveText() {
             finishOnBoarding()
@@ -84,7 +73,7 @@ class EditProfileTableViewController: UITableViewController, UITextFieldDelegate
     }
     
     private func finishOnBoarding() {
-        let withValues = [kFIRSTNAME : nameTextField.text!, kLASTNAME: surnameTextField.text!, kONBOARD : true, kFULLADRESS : adressTextField.text!, kPHONENUMBER : phoneNumberTextField.text!, kFULLNAME : (nameTextField.text! + " " + surnameTextField.text!)] as [String:Any]
+        let withValues = [kFIRSTNAME : nameTextField.text!, kLASTNAME: surnameTextField.text!, kONBOARD : true, kPHONENUMBER : phoneNumberTextField.text!, kFULLNAME : (nameTextField.text! + " " + surnameTextField.text!)] as [String:Any]
         
         updateCurrentUserInFirebase(withValues: withValues) { (error) in
             if error == nil {
@@ -97,15 +86,15 @@ class EditProfileTableViewController: UITableViewController, UITextFieldDelegate
         }
     }
     
+    //MARK: - To get user information from Firebase
     private func loadUserInfo() {
         guard let user = User.currentUser() else { return }
         nameTextField.text = user.firsName
         surnameTextField.text = user.lastName
         phoneNumberTextField.text = user.phoneNumber
-        adressTextField.text = user.fullAdress
     }
     
     private func textFieldHaveText() -> Bool {
-        return (nameTextField.text != "" && surnameTextField.text != "" && phoneNumberTextField.text != "" && adressTextField.text != "")
+        return (nameTextField.text != "" && surnameTextField.text != "" && phoneNumberTextField.text != "")
     }
 }

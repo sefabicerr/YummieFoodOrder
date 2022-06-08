@@ -9,15 +9,15 @@ import UIKit
 
 class OrderedTableViewCell: UITableViewCell {
 
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
-    }
+    static let identifier = String(describing: OrderedTableViewCell.self)
     
+    @IBOutlet weak var dateLbl: UILabel!
+    @IBOutlet weak var adressLbl: UILabel!
+    @IBOutlet weak var totalPriceLbl: UILabel!
+    
+    func setup(ordered: Ordered) {
+        dateLbl.text = ordered.date
+        totalPriceLbl.text = ordered.totalPrice
+        adressLbl.text = ordered.adress
+    }
 }

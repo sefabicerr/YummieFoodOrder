@@ -6,18 +6,21 @@
 //
 
 import UIKit
+import Kingfisher
 
 class CartTableViewCell: UITableViewCell {
-
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
-    }
     
+    static let identifier = String(describing: CartTableViewCell.self)
+    
+    @IBOutlet weak var foodImage: UIImageView!
+    @IBOutlet weak var foodNameLbl: UILabel!
+    @IBOutlet weak var foodCountLbl: UILabel!
+    @IBOutlet weak var foodPriceLbl: UILabel!
+
+    func setup(_ slide:FoodInTheCart) {
+        foodNameLbl.text = slide.yemek_adi
+        foodPriceLbl.text = "₺\(slide.yemek_fiyat!).00"
+        foodCountLbl.text = "\(slide.yemek_siparis_adet!) adet"
+        foodImage.kf.setImage(with: "\(kGETALLIMAGESLINK)\(slide.yemek_resim_adi!)".asUrl)
+    }
 }

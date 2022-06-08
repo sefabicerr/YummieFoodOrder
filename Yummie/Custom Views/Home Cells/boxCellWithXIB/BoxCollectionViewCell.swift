@@ -9,9 +9,12 @@ import UIKit
 
 class BoxCollectionViewCell: UICollectionViewCell {
 
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
+    static let identifier = String(describing: BoxCollectionViewCell.self)
+    @IBOutlet weak var boxImageView: UIImageView!
+    @IBOutlet weak var boxTitleLabel: UILabel!
+   
+    func setup(_ slide: BoxCellAtHome) {
+        boxTitleLabel.text = slide.title
+        boxImageView.image = slide.image
     }
-
 }

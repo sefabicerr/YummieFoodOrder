@@ -10,14 +10,14 @@ import FirebaseAuth
 import NVActivityIndicatorView
 
 
-class LogInViewController: UIViewController, AlertProtocol{
+class LogInViewController: UIViewController, AlertProtocol,ActivityIndicatorProtocol{
 
+    //MARK: - IBOutlets
 
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!{
         didSet {
             passwordTextField.isSecureTextEntry = true
-            passwordTextField.enablePasswordToggle()
         }
     }
     @IBOutlet weak var segmented: UISegmentedControl! {
@@ -26,36 +26,38 @@ class LogInViewController: UIViewController, AlertProtocol{
         }
     }
     
-    
-    //MARK: VARS
+    //MARK: - VARS
     var activityIndicator: NVActivityIndicatorView?
-    var iconClick = false
-    
     
     //MARK: Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
-        
+        activityIndicator = createActivityIndicator()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         emailTextField.becomeFirstResponder()
         
-        activityIndicator = NVActivityIndicatorView(frame: CGRect(x: self.view.frame.width / 2 - 30, y: self.view.frame.height / 2 - 30, width: 60.0, height: 60.0), type: .ballPulse, color: UIColor(named: "IndicatorColor"), padding: nil)
     }
     
-
+    @IBAction func showPasswordBtnClicked(_ sender: UIButton) {
+        if sender.isSelected {
+            sender.isSelected = false
+            passwordTextField.isSecureTextEntry = true
+        } else {
+            sender.isSelected = true
+            passwordTextField.isSecureTextEntry = false
+        }
+    }
+    
     @IBAction func logInBtnClicked(_ sender: Any) {
         guard let email = emailTextField.text, !email.isEmpty,
                 let password = passwordTextField.text, !password.isEmpty else {
                     alertMessage(titleInput: "Hata",
                                  messageInput: "Email ya da şifre alanı boş olamaz. Lütfen kontrol ediniz.")
-                    return
+                return
         }
-        
         loginUser()
     }
     
@@ -68,7 +70,6 @@ class LogInViewController: UIViewController, AlertProtocol{
     }
     
     @IBAction func segmentedBtn(_ sender: UISegmentedControl) {
-        
         if sender.selectedSegmentIndex == 1 {
             let controller = storyboard?.instantiateViewController(withIdentifier: "SignUpVC") as! SingUpViewController
             controller.modalPresentationStyle = .fullScreen
@@ -77,9 +78,6 @@ class LogInViewController: UIViewController, AlertProtocol{
         }
         
     }
-    
-    
-    
     
     //MARK: Helpers
     private func textFieldHaveText() -> Bool {
@@ -97,25 +95,9 @@ class LogInViewController: UIViewController, AlertProtocol{
         }
     }
     
-    //MARK: Activity Indicator
-    private func showLoadingIndicator(){
-        if activityIndicator != nil {
-            self.view.addSubview(activityIndicator!)
-            activityIndicator?.startAnimating()
-        }
-    }
-    
-    private func hideLoadingIndicator(){
-        if activityIndicator != nil {
-            activityIndicator?.removeFromSuperview()
-            activityIndicator?.stopAnimating()
-        }
-    }
-    
     //MARK: Login User
     private func loginUser() {
-        showLoadingIndicator()
-        
+        showLoadingIndicator(activityIndicator: activityIndicator)
         User.loginUserWith(email: emailTextField.text!, password: passwordTextField.text!) { (error, isEmailVerified) in
 
             if error == nil {
@@ -130,8 +112,8 @@ class LogInViewController: UIViewController, AlertProtocol{
                 self.alertMessage(titleInput: "Giriş Hatası",
                                   messageInput: "Girilen email ya da şifre hatalı. Lütfen kontrol ediniz.")
             }
-            self.hideLoadingIndicator()
         }
+        self.hideLoadingIndicator(activityIndicator: self.activityIndicator)
     }
     
     //MARK: Go to homeview
@@ -141,49 +123,4 @@ class LogInViewController: UIViewController, AlertProtocol{
         self.present(controller, animated: true, completion: nil)
         print("girdin mesajı ve yönlendirme")
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    //MARK: Show/Hide Password func
-    func showHidePasswordView() {
-        let imageIcon = UIImageView()
-        imageIcon.image = UIImage(named: "hidden")
-        let contentView = UIView()
-        contentView.addSubview(imageIcon)
-        contentView.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
-        imageIcon.frame = CGRect(x: -10, y: 0, width: 30, height: 30)
-        passwordTextField.rightView = contentView
-        passwordTextField.rightViewMode = .always
-        
-        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageTapped(tapGestureRecognizer:)))
-        imageIcon.isUserInteractionEnabled = true
-        imageIcon.addGestureRecognizer(tapGestureRecognizer)
-    }
-    
-    @objc func imageTapped(tapGestureRecognizer: UITapGestureRecognizer) {
-        let tappedImage = tapGestureRecognizer.view as! UIImageView
-        
-        if iconClick{
-            iconClick = false
-            tappedImage.image = UIImage(named: "view")
-            passwordTextField.isSecureTextEntry = false
-        } else {
-            iconClick = true
-            tappedImage.image = UIImage(named: "hidden")
-            passwordTextField.isSecureTextEntry = true
-        }
-    }
 }
-
-

@@ -7,17 +7,26 @@
 
 import UIKit
 
+protocol TrashProtocol {
+    func deleteAdressProtocolFunc(indexPath: IndexPath)
+}
+
 class AdressTableViewCell: UITableViewCell {
 
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
+    static let identifier = String(describing: AdressTableViewCell.self)
+    
+    @IBOutlet weak var adressLbl: UILabel!
+    var trashProtocol : TrashProtocol?
+    var indexPath : IndexPath?
+    
+    func setup(_ adress: String) {
+        adressLbl.text = adress
     }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
+    
+    
+    @IBAction func trashBtnClicked(_ sender: Any) {
+        trashProtocol?.deleteAdressProtocolFunc(indexPath: indexPath!)
     }
+    
     
 }
