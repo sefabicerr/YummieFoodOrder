@@ -7,16 +7,30 @@
 
 import Foundation
 
+/*
+ sipariş notu string
+ zili çalma bool
+ servis yolla bool
+ teslimat yöntemi string
+ ödeme yönetimi string
+ ödenecek tutar int
+ 
+ */
 class Ordered: ConvertCodableToDictionaryProtocol {
     var orderedId: String?
     var userId: String
-    var date: String
+    var date: String?
     var totalPrice: String
     var adress: String
+    var orderNote: String?
+    var isBell: Bool?
+    var isService: Bool?
+    var typeOfDelivery: String?
+    var paymentMethod: String?
+    var price: String?
     
-    init(userId: String, date: String, totalPrice: String, adress: String){
+    init(userId: String, totalPrice: String, adress: String){
         self.userId = userId
-        self.date = date
         self.totalPrice = totalPrice
         self.adress = adress
     }
@@ -29,7 +43,7 @@ class Ordered: ConvertCodableToDictionaryProtocol {
         } else { userId = "" }
         
         if let odate = dictionary[kDATE] {
-            date = odate as! String
+            date = odate as? String
         } else { date = "" }
         
         if let ototalPrice = dictionary[kTOTALPRICE] {
@@ -39,6 +53,30 @@ class Ordered: ConvertCodableToDictionaryProtocol {
         if let oadress = dictionary[kADRESS] {
             adress = oadress as! String
         } else { adress = "" }
+        
+        if let oorderNote = dictionary[kORDERNOTE] {
+            orderNote = oorderNote as? String
+        } else { orderNote = "" }
+        
+        if let oisBell = dictionary[kISBELL] {
+            isBell = oisBell as? Bool
+        } else { isBell = false }
+        
+        if let oisService = dictionary[kISSERVICE] {
+            isService = oisService as? Bool
+        } else { isService = false }
+        
+        if let otypeOfDelivery = dictionary[kTYPEOFDELIVERY] {
+            typeOfDelivery = otypeOfDelivery as? String
+        } else { typeOfDelivery = "" }
+        
+        if let opaymentMethod = dictionary[kPAYMENTMETHOD] {
+            paymentMethod = opaymentMethod as? String
+        } else { paymentMethod = "" }
+        
+        if let oprice = dictionary[kPRICE] {
+            price = oprice as? String
+        } else { price = "" }
         
     }
 }

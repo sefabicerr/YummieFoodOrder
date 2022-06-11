@@ -22,6 +22,10 @@ class OrderedViewController: UIViewController {
         registerCells()
         getOrdered()
     }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.tabBarController?.tabBar.isHidden = true
+    }
     
     //MARK: Connection of cell design
     private func registerCells() {

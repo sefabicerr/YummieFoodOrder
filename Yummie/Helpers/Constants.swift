@@ -49,6 +49,13 @@ public let kORDEREDID = "orderedId"
 public let kADRESS = "adress"
 public let kDATE = "date"
 public let kTOTALPRICE = "totalPrice"
+public let kORDERNOTE = "orderNote"
+public let kISBELL = "isBell"
+public let kISSERVICE = "isService"
+public let kTYPEOFDELIVERY = "typeOfDelivery"
+public let kPAYMENTMETHOD = "paymentMethod"
+public let kPRICE = "price"
+
 
 //Links
 public let kGETALLFOODSLINK = "http://kasimadalan.pe.hu/yemekler/tumYemekleriGetir.php"

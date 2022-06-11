@@ -30,6 +30,7 @@ class ProfileTableViewController: UITableViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         checkOnBoardingStatus()
+        self.tabBarController?.tabBar.isHidden = false
        
     }
 

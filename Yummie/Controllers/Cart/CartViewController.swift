@@ -17,7 +17,7 @@ class CartViewController: UIViewController {
     var foodList = [FoodInTheCart]()
     
     
-    //MARK: Lifecycle
+    //MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -26,21 +26,34 @@ class CartViewController: UIViewController {
     }
     override func viewWillAppear(_ animated: Bool) {
         getFood()
+        NotificationCenter.default.addObserver(self, selector: #selector(deleteAllCart), name: NSNotification.Name.init(rawValue: "deleteCartList"), object: nil)
+        self.tabBarController?.tabBar.isHidden = false
     }
     
-
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "toPlaceAnOrder" {
+            let order = sender as? Ordered
+            let VC = segue.destination as! PlaceAnOrderViewController
+            VC.order = order
+        }
+    }
+    
+    //MARK: - Order button func
     @IBAction func orderBtnClicked(_ sender: Any) {
-        let order = Ordered(userId: User.currentId(), date: currentDate(), totalPrice: priceLabel.text!, adress: User.currentUser()!.fullAdress!)
-        saveOrderedToFirebase(ordered: order)
-        deleteAllCart()
+        if foodList.count > 0{
+            let order = Ordered(userId: User.currentId(), totalPrice: priceLabel.text!, adress: User.currentUser()!.fullAdress!)
+            performSegue(withIdentifier: "toPlaceAnOrder", sender: order)
+        }
         
     }
     
+    //MARK: - Trash button func
     @IBAction func trashBtnClicked(_ sender: Any) {
         deleteAllCart()
     }
     
-    private func deleteAllCart() {
+    //MARK: - To delete all the food in the cart
+    @objc func deleteAllCart() {
         Service.deleteAllCart(carts: foodList)
         DispatchQueue.main.async {
             self.foodList.removeAll()
@@ -49,12 +62,12 @@ class CartViewController: UIViewController {
         }
     }
     
-    //MARK: Connection of cell design
+    //MARK: - Connection of cell design
     private func registerCells() {
         tableView.register(UINib(nibName: CartTableViewCell.identifier, bundle: nil), forCellReuseIdentifier: CartTableViewCell.identifier)
     }
     
-    //MARK: Func of displaying the orders from the service in the table view
+    //MARK: - Func of displaying the orders from the service in the table view
     private func getFood(){
         Service.getCart() { response in
             self.foodList = response
@@ -65,15 +78,7 @@ class CartViewController: UIViewController {
         }
     }
     
-    //MARK: - For take the current date
-    private func currentDate() -> String{
-        let currentDateTime = Date()
-        let formatter = DateFormatter()
-        formatter.dateFormat = "dd MMM yyyy HH:mm"
-        return formatter.string(from: currentDateTime)
-    }
-    
-    //MARK: Function of calculates the total price
+    //MARK: - Function of calculates the total price
     func totalPriceCalculator(cardList: [FoodInTheCart]) {
         var totalPrice = 0
         for price in cardList {
@@ -81,10 +86,7 @@ class CartViewController: UIViewController {
             print(price.yemek_fiyat!)
         }
         priceLabel.text = "₺\(totalPrice).00"
-    }
-    
-    
-    
+    }  
 }
 
 //MARK: Create datasource and delegate func

@@ -5,7 +5,6 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
-        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -31,7 +30,7 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Cumhuriyet mahallesi, 311 sokak, No:11, Kat:2, Sefa" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UoP-oR-jdB">
                                 <rect key="frame" x="41" y="15" width="262" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="11"/>
-                                <nil key="textColor"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrow.right" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="Fxd-x8-qlj">
@@ -42,7 +41,7 @@
                                 </constraints>
                             </imageView>
                         </subviews>
-                        <color key="backgroundColor" name="appColor"/>
+                        <color key="backgroundColor" red="0.20784312490000001" green="0.20784312490000001" blue="0.2117646933" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="Fxd-x8-qlj" secondAttribute="bottom" constant="16" id="124-bB-Boj"/>
                             <constraint firstItem="UoP-oR-jdB" firstAttribute="leading" secondItem="PvU-YB-1tN" secondAttribute="trailing" constant="8" symbolic="YES" id="5yP-kQ-47C"/>
@@ -62,7 +61,7 @@
                         </userDefinedRuntimeAttributes>
                     </view>
                 </subviews>
-                <color key="backgroundColor" systemColor="systemYellowColor"/>
+                <color key="backgroundColor" name="appColor"/>
                 <constraints>
                     <constraint firstItem="RgA-qc-ZOP" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="B7p-zV-k4w"/>
                     <constraint firstAttribute="bottom" secondItem="RgA-qc-ZOP" secondAttribute="bottom" id="X2O-jn-ee5"/>
@@ -84,8 +83,5 @@
         <namedColor name="appColor">
             <color red="0.81199997663497925" green="0.28200000524520874" blue="0.13300000131130219" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
-        <systemColor name="systemYellowColor">
-            <color red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
     </resources>
 </document>

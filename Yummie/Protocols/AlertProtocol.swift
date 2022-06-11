@@ -19,4 +19,19 @@ extension AlertProtocol where Self: AlertProtocol & UIViewController {
         alert.addAction(okButton)
         self.present(alert, animated: true, completion: nil)
     }
+    
+    func alertWithTextField(titleInput: String = "", messageInput: String = "", _ completion : @escaping(String) -> Void) {
+        let alert = UIAlertController(title: titleInput, message: messageInput, preferredStyle: .alert)
+        let okButton = UIAlertAction(title: "Tamam", style: .default) { (alertAction) in
+        let textField = alert.textFields![0] as UITextField
+        completion(textField.text!)
+        }
+        
+        alert.addAction(okButton)
+        alert.addTextField { textfield in
+            textfield.placeholder = "Sipariş notunuzu yazınız"
+            textfield.isEnabled = true
+        }
+        self.present(alert, animated: true, completion: nil)
+    }
 }

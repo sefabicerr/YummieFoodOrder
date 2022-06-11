@@ -36,8 +36,6 @@ class FoodDetailViewController: UIViewController, AlertProtocol {
         setupUIInfo()
         createGestureRecognizer()
         
-        //getFavorite()
-        //print(isImageClick)
         getFavorite2()
 
         

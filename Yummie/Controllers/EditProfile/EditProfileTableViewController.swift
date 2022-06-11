@@ -39,6 +39,10 @@ class EditProfileTableViewController: UITableViewController, UITextFieldDelegate
         self.tableView.contentInset = UIEdgeInsets(top: -20, left: 0, bottom: -20, right: 0)
         loadUserInfo()
     }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.tabBarController?.tabBar.isHidden = true
+    }
     
     // MARK: - Table view data source
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {

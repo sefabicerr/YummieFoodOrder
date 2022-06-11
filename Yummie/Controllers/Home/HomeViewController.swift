@@ -36,8 +36,8 @@ class HomeViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        
         getUserAdress()
+        self.tabBarController?.tabBar.isHidden = false
     }
     
     //MARK: - For pagecontroller

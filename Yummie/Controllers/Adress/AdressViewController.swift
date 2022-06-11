@@ -26,7 +26,7 @@ class AdressViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+        self.tabBarController?.tabBar.isHidden = true
     }
     //MARK: Connection of cell design
     private func registerCells() {

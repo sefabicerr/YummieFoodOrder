@@ -30,9 +30,8 @@ class FavoritesViewController: UIViewController,ActivityIndicatorProtocol {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        
         getFavoriteFoods()
-        
+        self.tabBarController?.tabBar.isHidden = true
     }
     
     //MARK: - Register cell func
