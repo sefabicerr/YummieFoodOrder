@@ -7,15 +7,6 @@
 
 import Foundation
 
-/*
- sipariş notu string
- zili çalma bool
- servis yolla bool
- teslimat yöntemi string
- ödeme yönetimi string
- ödenecek tutar int
- 
- */
 class Ordered: ConvertCodableToDictionaryProtocol {
     var orderedId: String?
     var userId: String
@@ -107,5 +98,10 @@ func downloadOrderedFromFirebase(with id: String, completion: @escaping (_ order
         }
         completion(orderedArray)
     }
+}
+
+//MARK: - Deletes ordered object
+func deleteOrderedToFirebase(with orderedId: String) {
+    FirebaseReference(.Ordered).document("\(orderedId)").delete()
 }
 

@@ -17,7 +17,7 @@ class OrderedTableViewCell: UITableViewCell {
     
     func setup(ordered: Ordered) {
         dateLbl.text = ordered.date
-        totalPriceLbl.text = ordered.totalPrice
+        totalPriceLbl.text = "₺\(ordered.totalPrice).00"
         adressLbl.text = ordered.adress
     }
 }

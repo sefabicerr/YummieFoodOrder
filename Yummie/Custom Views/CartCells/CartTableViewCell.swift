@@ -18,8 +18,9 @@ class CartTableViewCell: UITableViewCell {
     @IBOutlet weak var foodPriceLbl: UILabel!
 
     func setup(_ slide:FoodInTheCart) {
+        let foodTotalPrice = Int(slide.yemek_fiyat!)! * Int(slide.yemek_siparis_adet!)!
         foodNameLbl.text = slide.yemek_adi
-        foodPriceLbl.text = "₺\(slide.yemek_fiyat!).00"
+        foodPriceLbl.text = "₺\(foodTotalPrice).00"
         foodCountLbl.text = "\(slide.yemek_siparis_adet!) adet"
         foodImage.kf.setImage(with: "\(kGETALLIMAGESLINK)\(slide.yemek_resim_adi!)".asUrl)
     }

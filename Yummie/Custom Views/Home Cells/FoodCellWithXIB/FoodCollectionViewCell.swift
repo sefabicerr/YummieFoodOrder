@@ -17,7 +17,7 @@ class FoodCollectionViewCell: UICollectionViewCell {
 
     func setup(_ slide: Foods) {
         foodNameLbl.text = slide.yemek_adi
-        foodPriceLbl.text = slide.yemek_fiyat
+        foodPriceLbl.text = "₺\(slide.yemek_fiyat!).00"
         foodImage.kf.setImage(with: "\(kGETALLIMAGESLINK)\(slide.yemek_resim_adi!)".asUrl)
     }
 }

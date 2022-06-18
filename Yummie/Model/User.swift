@@ -10,7 +10,7 @@ import FirebaseAuth
 import UIKit
 
 class User {
-    let userId: String
+    var userId: String
     var email: String
     var firsName: String
     var lastName: String
@@ -31,7 +31,9 @@ class User {
     }
     
     init(dictionary: NSDictionary) {
-        userId = dictionary[kUSERID] as! String
+        if let id = dictionary[kUSERID] {
+            userId = id as! String
+        } else { userId = "" }
         
         if let mail = dictionary[kEMAIL] {
             email = mail as! String
@@ -123,7 +125,7 @@ func downloadUserFromFirebase(userId: String, email: String) {
             print("kullanıcı firebaseden çekildi")
             saveUserLocally(userDictionary: snapshot.data()! as NSDictionary)
         } else {
-            //kullanıcı yok, firebase yeni kullanıcı olarak ekle
+            print("Kullanıcı firebaseden çekilemedi")
             let user = User(userId: userId, email: email, firsName: "", lastName: "")
             saveUserLocally(userDictionary: userDictionaryFrom(user: user))
             saveUserToFirebase(user: user)

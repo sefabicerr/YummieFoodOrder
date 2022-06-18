@@ -15,5 +15,4 @@ class TypeOfDeliveryTableViewCell: UITableViewCell {
     }
     @IBOutlet weak var circleImage: UIImageView!
     @IBOutlet weak var typeLbl: UILabel!
-    
 }

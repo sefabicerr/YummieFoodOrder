@@ -104,7 +104,7 @@ class SingUpViewController: UIViewController,AlertProtocol,ActivityIndicatorProt
                 }
             } else {
                 print("error:", error!.localizedDescription)
-                self.alertMessage(titleInput: "Hata", messageInput: "Email adresi zaten başka bir hesap tarafından kullanılıyor, lütfen başka bir hesap kullanın.")
+                self.alertMessage(titleInput: "Hata", messageInput: "\(error!.localizedDescription)")
             }
             self.hideLoadingIndicator(activityIndicator: self.activityIndicator)
         }

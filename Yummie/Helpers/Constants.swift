@@ -32,6 +32,7 @@ public let kFOODID = "foodId"
 public let kFOODNAME = "foodName"
 public let kFOODPRICE = "foodPrice"
 public let kIMAGELINK = "imageLink"
+public let kIMAGELINKNAME = "imageLinkName"
 
 //ADRESS
 public let kADRESSID = "adressId"

@@ -21,17 +21,19 @@ class PlaceAnOrderViewController: UIViewController,AlertProtocol {
     var isService = false
     var isDeliveryTypeYummie = true
     var isDeliveryTypeResto = false
+    var discount = 0
     //MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
 
         registerCells()
         adressView.roundCorners([.bottomRight, .topRight], radius: 22)
-        
     }
     override func viewWillAppear(_ animated: Bool) {
+        getUserAdress()
         super.viewWillAppear(animated)
         self.tabBarController?.tabBar.isHidden = true
+        createNotificationObserver()
     }
     
     //MARK: -Connection of cell design
@@ -56,12 +58,20 @@ class PlaceAnOrderViewController: UIViewController,AlertProtocol {
         order.isBell = isBell
         order.isService = isService
         if isDeliveryTypeYummie {
-            order.typeOfDelivery = "Yummie"
+            order.typeOfDelivery = "Yummie getirsin"
         } else {
-            order.typeOfDelivery = "Restorant"
+            order.typeOfDelivery = "Restoran getirsin"
         }
+        
         saveOrderedToFirebase(ordered: order)
         self.navigationController?.popToRootViewController(animated: true)
+    }
+    
+    //MARK: - To get the user address
+    private func getUserAdress() {
+        downloadUserAdressFromFirebase(with: User.currentId()) { (adress) in
+            self.adressLbl.text = adress
+        }
     }
     
     //MARK: - CheckBox control funcs
@@ -111,6 +121,22 @@ class PlaceAnOrderViewController: UIViewController,AlertProtocol {
         return formatter.string(from: currentDateTime)
     }
     
+    //MARK: - To calculate the discounted payment amount
+    private func discountedPaymentAmountCalculator() -> Int{
+        guard let order = order else {return 0}
+        let paymentAmount = Int(order.totalPrice) ?? 0
+        return paymentAmount - discount
+        
+    }
+    
+    //MARK: - Create notification observer
+    private func createNotificationObserver() {
+        NotificationCenter.default.addObserver(self, selector: #selector(getObject), name: NSNotification.Name.init(rawValue: "discount"), object: nil)
+    }
+    @objc func getObject() {
+        self.discount = 10
+        tableView.reloadData()
+    }
 }
 
 extension PlaceAnOrderViewController: UITableViewDelegate,UITableViewDataSource {
@@ -203,8 +229,17 @@ extension PlaceAnOrderViewController: UITableViewDelegate,UITableViewDataSource 
                 cell.textLbl.text = "Kampanya Seçin"
                 return cell
                 
+            } else if indexPath.row == 1{
+                let cell = tableView.dequeueReusableCell(withIdentifier: PaymentBriefTableViewCell.identifier, for: indexPath) as! PaymentBriefTableViewCell
+                cell.nameLbl.text = "Sepet tutarı"
+                cell.priceLbl.text = "₺\(order?.totalPrice ?? "0").00"
+                return cell
             } else {
                 let cell = tableView.dequeueReusableCell(withIdentifier: PaymentBriefTableViewCell.identifier, for: indexPath) as! PaymentBriefTableViewCell
+                cell.nameLbl.text = "Ödenecek tutar"
+                cell.priceLbl.text = "₺\(discountedPaymentAmountCalculator()).00"
+                self.priceLbl.text = "₺\(discountedPaymentAmountCalculator()).00"
+                order?.price = "\(discountedPaymentAmountCalculator())"
                 return cell
             }
         }
@@ -213,7 +248,7 @@ extension PlaceAnOrderViewController: UITableViewDelegate,UITableViewDataSource 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 0 {
             if indexPath.row == 0 {
-                alertWithTextField(titleInput: "Sipariş Notu", messageInput: "") { (textFieldText) in
+                alertWithTextField(titleInput: "Sipariş Notu", placeHolder: "Sipariş notunuzu yazınız") { (textFieldText) in
                     guard let order = self.order else {return}
                     order.orderNote = textFieldText
                     tableView.reloadData()

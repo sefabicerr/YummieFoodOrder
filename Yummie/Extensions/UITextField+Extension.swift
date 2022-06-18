@@ -28,6 +28,18 @@ extension UITextField {
         isSecureTextEntry.toggle()
         button.isSelected.toggle()
     }
+    
+    func shake(horizantaly: CGFloat = 0, verticaly: CGFloat = 0) {
+        let animation = CABasicAnimation(keyPath: "position")
+        animation.duration = 0.05
+        animation.repeatCount = 5
+        animation.autoreverses = true
+        animation.fromValue = NSValue(cgPoint: CGPoint(x: self.center.x - horizantaly,
+                                                       y: self.center.y - verticaly))
+        animation.toValue = NSValue(cgPoint: CGPoint(x: self.center.x + horizantaly,
+                                                     y: self.center.y - verticaly))
+        self.layer.add(animation, forKey: "position")
+    }
 }
 
 

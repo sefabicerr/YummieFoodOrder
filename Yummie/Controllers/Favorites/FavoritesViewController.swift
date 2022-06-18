@@ -30,8 +30,18 @@ class FavoritesViewController: UIViewController,ActivityIndicatorProtocol {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        favoriteCollectionView.backgroundView = EmptyView.emptyViewObj
         getFavoriteFoods()
         self.tabBarController?.tabBar.isHidden = true
+
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "toFavDetail" {
+            let food = sender as? Favorites
+            let VC = segue.destination as! FavoritesDetailViewController
+            VC.food = food!
+        }
     }
     
     //MARK: - Register cell func
@@ -64,6 +74,16 @@ extension FavoritesViewController: UICollectionViewDelegate,UICollectionViewData
         favFoodList.remove(at: indexPath.row)
         favoriteCollectionView.reloadData()
     }
+    
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        if favFoodList.count > 0 {
+            collectionView.backgroundView?.isHidden = true
+        } else {
+            collectionView.backgroundView?.isHidden = false
+            EmptyView.viewSetup("Favoriler Boş", "empty-favorite")
+        }
+        return 1
+    }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return favFoodList.count
     }
@@ -75,5 +95,10 @@ extension FavoritesViewController: UICollectionViewDelegate,UICollectionViewData
         cell.cellButtonProtocol = self
         cell.indexPath = indexPath
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let food = favFoodList[indexPath.row]
+        performSegue(withIdentifier: "toFavDetail", sender: food)
     }
 }

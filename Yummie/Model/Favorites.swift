@@ -14,6 +14,7 @@ class Favorites {
     var foodName: String
     var foodPrice: String
     var imageLink: [String]!
+    var imageLinkName: String?
     
     init(foodId: String, userId: String, foodName: String ,foodPrice: String) {
         self.foodId = foodId
@@ -44,6 +45,10 @@ class Favorites {
         if let image = dictionary[kIMAGELINK] {
             imageLink = image as? [String]
         } else { imageLink = [] }
+        
+        if let fimageLinkName = dictionary[kIMAGELINKNAME] {
+            imageLinkName = fimageLinkName as? String
+        } else { imageLinkName = "" }
     }
 }
 
@@ -61,7 +66,7 @@ func saveFavoriteToFirebase(favorite: Favorites) {
 
 //MARK: - Helper functions
 func favoriteDictionaryFrom(favorite: Favorites) -> NSDictionary {
-    return NSDictionary(objects: [favorite.favId, favorite.foodId, favorite.userId, favorite.foodName, favorite.foodPrice, favorite.imageLink], forKeys: [kFAVID as NSCopying,kFOODID as NSCopying, kUSERID as NSCopying, kFOODNAME as NSCopying,kFOODPRICE as NSCopying,kIMAGELINK as NSCopying])
+    return NSDictionary(objects: [favorite.favId, favorite.foodId, favorite.userId, favorite.foodName, favorite.foodPrice, favorite.imageLink, favorite.imageLinkName], forKeys: [kFAVID as NSCopying,kFOODID as NSCopying, kUSERID as NSCopying, kFOODNAME as NSCopying,kFOODPRICE as NSCopying,kIMAGELINK as NSCopying,kIMAGELINKNAME as NSCopying])
 }
 
 //MARK: - To get the selected favorite

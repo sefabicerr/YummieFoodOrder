@@ -32,19 +32,20 @@ class HomeViewController: UIViewController {
         registerCells()
         createCellInfos()
         showAllFoods()
+        print("Tüm yemek sayısı: \(foodList.count)")
         startTimer()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         getUserAdress()
         self.tabBarController?.tabBar.isHidden = false
+    
     }
     
     //MARK: - For pagecontroller
     private func startTimer() {
         timer = Timer.scheduledTimer(timeInterval: 2.5, target: self, selector: #selector(goToNextIndex), userInfo: nil, repeats: true)
     }
-    
     @objc func goToNextIndex() {
         if cellCurrentIndex < slides.count - 1 {
             cellCurrentIndex += 1
@@ -157,10 +158,5 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
         performSegue(withIdentifier: "toFoodDetail", sender: food)
     default: print("hata")
         }
-    }
-    
-    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        let width = scrollView.frame.width
-        currentPage = Int(scrollView.contentOffset.x / width)
     }
 }

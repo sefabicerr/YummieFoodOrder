@@ -21,13 +21,16 @@ class AdressViewController: UIViewController {
         super.viewDidLoad()
     
         registerCells()
-        getAdress()
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        adressTableView.backgroundView = EmptyView.emptyViewObj
         self.tabBarController?.tabBar.isHidden = true
+        getAdress()
     }
+    
     //MARK: Connection of cell design
     private func registerCells() {
         adressTableView.register(UINib(nibName: AdressTableViewCell.identifier, bundle: nil), forCellReuseIdentifier: AdressTableViewCell.identifier)
@@ -73,6 +76,15 @@ extension AdressViewController: UITableViewDelegate,UITableViewDataSource,TrashP
         adressTableView.reloadData()
     }
     
+    func numberOfSections(in tableView: UITableView) -> Int {
+        if adressList.count > 0 {
+            tableView.backgroundView?.isHidden = true
+        } else {
+            tableView.backgroundView?.isHidden = false
+            EmptyView.viewSetup("Kayıtlı adresiniz bulunmuyor", "empty-address")
+        }
+        return 1
+    }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return adressList.count

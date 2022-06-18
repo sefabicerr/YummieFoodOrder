@@ -20,8 +20,8 @@ extension AlertProtocol where Self: AlertProtocol & UIViewController {
         self.present(alert, animated: true, completion: nil)
     }
     
-    func alertWithTextField(titleInput: String = "", messageInput: String = "", _ completion : @escaping(String) -> Void) {
-        let alert = UIAlertController(title: titleInput, message: messageInput, preferredStyle: .alert)
+    func alertWithTextField(titleInput: String = "", placeHolder: String = "", _ completion : @escaping(String) -> Void) {
+        let alert = UIAlertController(title: titleInput, message: "", preferredStyle: .alert)
         let okButton = UIAlertAction(title: "Tamam", style: .default) { (alertAction) in
         let textField = alert.textFields![0] as UITextField
         completion(textField.text!)
@@ -29,9 +29,12 @@ extension AlertProtocol where Self: AlertProtocol & UIViewController {
         
         alert.addAction(okButton)
         alert.addTextField { textfield in
-            textfield.placeholder = "Sipariş notunuzu yazınız"
+            textfield.placeholder = placeHolder
             textfield.isEnabled = true
         }
+        
+        
         self.present(alert, animated: true, completion: nil)
     }
 }
+

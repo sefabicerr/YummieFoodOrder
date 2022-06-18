@@ -30,7 +30,7 @@ class OnBoardingViewController: UIViewController {
     //MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         slides = [OnBoardingSlide(title: "Lezzetli Yemekler", description: "Dünya çapında farklı kültürlerden çeşitli harika yemekleri deneyimleyin.", image: UIImage(named: "slide2")!),
                   OnBoardingSlide(title: "Birinci Sınıf Şefler", description: "Yemekleriniz sadece en iyiler tarafından hazırlanır.", image: UIImage(named: "slide1")!),
                   OnBoardingSlide(title: "Anında Teslimat", description: "Dilediğiniz yemeği sipariş edin, 30 dakika içinde kapınıza gelsin.", image: UIImage(named: "slide3")!)]

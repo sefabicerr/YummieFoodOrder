@@ -37,8 +37,6 @@ class FoodDetailViewController: UIViewController, AlertProtocol {
         createGestureRecognizer()
         
         getFavorite2()
-
-        
     }
     
     
@@ -71,12 +69,13 @@ class FoodDetailViewController: UIViewController, AlertProtocol {
             let fav = Favorites(foodId:food.yemek_id!,
                                 userId: User.currentId(),
                                 foodName: food.yemek_adi!,
-                                foodPrice: food.yemek_fiyat!/*, imageLink: imageList*/)
+                                foodPrice: food.yemek_fiyat!)
             self.imageView.kf.setImage(with: "\(kGETALLIMAGESLINK)\(food.yemek_resim_adi!)".asUrl)
             self.cartImage.append(self.imageView.image)
             
             uploadImages(images: cartImage, itemId: fav.foodId) { (imageLinkArray) in
                 fav.imageLink = imageLinkArray
+                fav.imageLinkName = food.yemek_resim_adi
                 saveFavoriteToFirebase(favorite: fav)
                 self.d.set(fav.favId, forKey: fav.foodId)
                 

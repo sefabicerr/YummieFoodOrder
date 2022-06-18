@@ -15,7 +15,6 @@ class ProfileTableViewController: UITableViewController {
     @IBOutlet weak var fullNameLbl: UILabel!
     @IBOutlet weak var emailLbl: UILabel!
     @IBOutlet weak var phoneNumberLbl: UILabel!
-    @IBOutlet weak var adressLbl: UILabel!
     
     //MARK: -Vars
     @IBOutlet weak var rightEditBtn: UIBarButtonItem!
@@ -52,7 +51,11 @@ class ProfileTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.row == 6 {
+        if indexPath.row == 3 {
+            performSegue(withIdentifier: "profileToAddress", sender: nil)
+        } else if indexPath.row == 5 {
+            performSegue(withIdentifier: "profileToOrdered", sender: nil)
+        } else if indexPath.row == 6 {
             logOut()
         }
     }
@@ -92,14 +95,14 @@ class ProfileTableViewController: UITableViewController {
     private func defaultUserInfoInLabel() {
         fullNameLbl.text = "My Name"
         phoneNumberLbl.text = "My Phone Number"
-        adressLbl.text = "My Adress"
+        emailLbl.text = "\(User.currentUser()!.email)"
     }
     
     private func userInfoInLabel() {
         guard let user = User.currentUser() else { return }
         fullNameLbl.text = user.fullName
         phoneNumberLbl.text = user.phoneNumber
-        adressLbl.text = user.fullAdress
+        emailLbl.text = "\(User.currentUser()!.email)"
     }
 }
 
